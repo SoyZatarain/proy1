@@ -146,7 +146,7 @@ class HTMLGEN:
         self.columna = 0
         self.linea = 1
 
-    def cargarSiguenteSimbolo(self):
+    def cargarSiguienteSimbolo(self):
         while self.caracterActual is not None:
             if self.caracterActual.isspace():
                 if self.caracterActual == "\n":
@@ -172,5 +172,6 @@ class HTMLGEN:
                     else:
                         self.caracterActual = self.texto[self.posicion]
                         self.caracterAnterior = self.texto[self.posicion-1]
+                return self.etiquetas.get(cadenaEncontrada)
             raise Exception("Caracter no reconocido: " + self.caracterActual)
         return SIMBOLIZAR("FIN", None)
