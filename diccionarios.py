@@ -132,3 +132,13 @@ etiquetas: dict = {
     "wbr":        SIMBOLIZAR("HTML5NW_WBR",        "WBR"),        # XXX Defines a possible line-break
 }
 
+simbolos: dict = {
+    "<":  SIMBOLIZAR("SYMBOL_OPENTAGS", "<"),
+    ">":  SIMBOLIZAR("SYMBOL_CLOSETAG", ">"),
+    "/":  SIMBOLIZAR("SYMBOL_DIAGONAL", "/"),
+    "=":  SIMBOLIZAR("SYMBOL_EQUALSYM", "="),
+    "'":  SIMBOLIZAR("SYMBOL_SINQUOTE", "'"),
+    "\"": SIMBOLIZAR("SYMBOL_DOBQUOTE", "\""),
+    "-":  SIMBOLIZAR("SYMBOL_DASHSYMB", "-"),
+    "!":  SIMBOLIZAR("SYMBOL_EXCLAMAT", "!"),
+}

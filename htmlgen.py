@@ -40,5 +40,15 @@ class HTMLGEN:
                         self.caracterActual = self.texto[self.posicion]
                         self.caracterAnterior = self.texto[self.posicion-1]
                 return diccionarios.etiquetas.get(cadenaEncontrada)
+            elif self.caracterActual in list(diccionarios.simbolos.keys()):
+                temp = self.caracterActual
+                self.posicion += 1
+                self.columna += 1
+                if self.posicion > len(self.texto) - 1:
+                    self.caracterActual = None
+                else:
+                    self.caracterActual = self.texto[self.posicion]
+                    self.caracterAnterior = self.texto[self.posicion-1]
+                return diccionarios.simbolos.get(temp)
             raise Exception("Caracter no reconocido: " + self.caracterActual)
-        return SIMBOLIZAR("FIN", None)
+        return diccionarios.SIMBOLIZAR("FIN", None)
