@@ -13,7 +13,7 @@ class HTMLGEN:
         self.columna = 0
         self.linea = 1
 
-    def avanzar():
+    def avanzar(self):
         self.posicion += 1
         self.columna += 1
         if self.posicion > len(self.texto) - 1:
@@ -36,7 +36,7 @@ class HTMLGEN:
                 while self.caracterActual is not None and self.caracterActual.isalnum():
                     cadenaEncontrada += self.caracterActual
                     self.avanzar()
-                return diccionarios.etiquetas.get(cadenaEncontrada)
+                return diccionarios.etiquetas.get(cadenaEncontrada, diccionarios.SIMBOLIZAR("identificador", cadenaEncontrada))
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
                 temp = self.caracterActual
                 self.avanzar()
