@@ -41,5 +41,11 @@ class HTMLGEN:
                 temp = self.caracterActual
                 self.avanzar()
                 return diccionarios.simbolos.get(temp)
+            elif self.caracterActual.isdigit():
+                numero = ""
+                while self.caracterActual is not None and self.caracterActual.isdigit():
+                    numero += self.caracterActual
+                    self.avanzar()
+                return diccionarios.SIMBOLIZAR("INT_NUMBER", numero)
             raise Exception("Caracter no reconocido: " + self.caracterActual)
         return diccionarios.SIMBOLIZAR("FIN", None)
