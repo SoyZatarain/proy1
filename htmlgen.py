@@ -36,7 +36,7 @@ class HTMLGEN:
                 while self.caracterActual is not None and self.caracterActual.isalnum():
                     cadenaEncontrada += self.caracterActual
                     self.avanzar()
-                return diccionarios.etiquetas.get(cadenaEncontrada, diccionarios.SIMBOLIZAR("identificador", cadenaEncontrada))
+                return diccionarios.etiquetas.get(cadenaEncontrada, diccionarios.SIMBOLIZAR("IDENTIFIER", cadenaEncontrada))
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
                 temp = self.caracterActual
                 self.avanzar()

@@ -141,4 +141,5 @@ simbolos: dict = {
     "\"": SIMBOLIZAR("SYMBOL_DOBQUOTE", "\""),
     "-":  SIMBOLIZAR("SYMBOL_DASHSYMB", "-"),
     "!":  SIMBOLIZAR("SYMBOL_EXCLAMAT", "!"),
+    ".":  SIMBOLIZAR("SYMBOL_DOTDOTDT", "."),
 }
