@@ -18,15 +18,65 @@ Proyecto 1: Generador de HTML5 mediante JavaScript ES5 implementado en Python
 
  > Planes
  ~~~~~~~~~~
- Primeramente, lo que ya se tiene es lo siguiente:
- 1.- Diccionario de etiquetas validas para HTML5 en tres categorías; TAG, HTMLNW Y DPRCATD
- 2.- Clase para simbolizar etiquetas con tipo y valor
- 3.- Método para recorrer el contenido de la entrada y simbolizar cada nombre de etiquetas
- Los planes de aquí en adelante son:
- 1.- Simbolos de mas de un caracter, como un comentario
- 2.- Leer archivo, no entrada estándar
- 3.- Detectar uso de etiquetas obsoletas
- 4.- Detectar uso de atributos incorrectos
+ Originalmente trate de hacer una simbolizacion cracter por caracter, despues ensamblar los
+ simbolos generado en estructuras, que finalmente se ensamblarian en el  HTML  introducido.
+ Sin embargo,  me  doy  cuenta que esto es un esfuerzo innecesario porque hay patrones bien
+ conocidos y estructurado en el documento. Dicho asi suena muy obvio, pero me refiero a las
+ estructuras menos genericas, no partiendo desde sus cimientos, sino de el propio estandar,
+ considerando los siguientes campos:
+ 1.- Etiquetas con o sin cierre
+      <tag attr1="val1" attr2="val2" ... attrn="attrn">Inner of the tag</tag>
+      ^ ^  \__________________  _____________________/^\______  ______/\_  _/
+      | |                     \/                      |       \/         \/
+      | |                 Atributos                   |       |         Cierre de etiqueta
+      | |                                            /        |
+      | Nombre de la etiqueta                       /     Interior de la etiqueta
+      |                                            /
+      Simbolo de apertura              Simbolo de cierre
+
+      - Esta es una de las estructuras mas complejas que trataermos a lo largo del desarrollo
+      y de ella rescataremos los pedazos que iremos recolectando en la etapa de simbolizacion
+      como hemos hecho hasta ahora, pero con un nuevo paradigma.
+      Etiqueta = Apertura + nombre + atributos + cierre + interior + cierre de etiqueta
+
+      1.1.- Apertura (Obligatorio):
+         Al estar trabajando con el estandar el simbolo de apertura sera siempre este: "<".
+      1.2.- Nombre de etiqueta (Obligatorio):
+         Ya tenemos un diccionario de etiquetas incluso indicando si son nuevas u obsoletas.
+         Aqui habra que hacer otra separacion en una dimension nueva que indique si la etiqueta
+         requiere de cierre o no.
+      1.3.- Atributos (Opcional):
+         La estructura de los atributos es muy simple:
+               attribute="value: stylized;"
+                   ^    ^^\______  ______/^
+                   |    ||       \/       |
+                   |    ||       |        \
+                  /     ||       |         \
+                 /      ||     valor        \
+  Nombre de atributo   /  \                comilla o comillas
+                      /  Comilla o
+          Simbolo igual     comillas
+          Atributo = nombre + igual + comillas + valor + comillas
+      1.4.-  Simbolo de cierre (Obligatorio):
+         Igual que en la apertura, siempre sera: ">"
+      1.5.- Interior de la etiqueta (Opcional):
+         Puede contener otras etiquetas que seguiran con la descripcion correspondiente o texto.
+      1.6.- Cierre de etiqueta (Opcional):
+         La estructura de el cierre queda asi:
+         </tagname>
+         ^^   ^   ^
+         ||   |   |
+        / |   |    \
+Apertura  |   |     Cierre
+         /     \
+     Diagonal   \
+                Nombre de etiqueta a cerrar
+         Cierre de etiqueta = apertura + diagonal + nombre + cierre
+
+ 2.- Etiquetas especiales
+      2.1.- Sera obligatorio incluir una etiqueta html, body y head; estas tres deben cumplir la jerarquia
+      2.2.- La etiqueta doctype sera un simbolo especial y se simbolizara entero, ya que no tiene variantes
+         validas en HTML5: <!DOCTYPE html>
 
  > Posibles preguntas
  ~~~~~~~~~~~~~~~~~~~~~~
