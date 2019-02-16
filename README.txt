@@ -23,11 +23,10 @@ Proyecto 1: Generador de HTML5 mediante JavaScript ES5 implementado en Python
  2.- Clase para simbolizar etiquetas con tipo y valor
  3.- Método para recorrer el contenido de la entrada y simbolizar cada nombre de etiquetas
  Los planes de aquí en adelante son:
- 1.- Diccionario de simbolos
- 2.- Diccionario de atributos
- 3.- Leer archivo, no entrada estándar
- 4.- Detectar uso de etiquetas obsoletas
- 5.- Detectar uso de atributos incorrectos
+ 1.- Simbolos de mas de un caracter, como un comentario
+ 2.- Leer archivo, no entrada estándar
+ 3.- Detectar uso de etiquetas obsoletas
+ 4.- Detectar uso de atributos incorrectos
 
  > Posibles preguntas
  ~~~~~~~~~~~~~~~~~~~~~~
