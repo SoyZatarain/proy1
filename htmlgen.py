@@ -22,21 +22,27 @@ class HTMLGEN:
             self.caracterAnterior = self.texto[self.posicion-1]
             self.caracterActual = self.texto[self.posicion]
 
+    def simbolosIgnorados(self):
+        while self.caracterActual is not None and self.caracterActual.isspace():
+            self.avanzar()
+
+    def palabra(self):
+        cadenaEncontrada = ""
+        while self.caracterActual is not None and self.caracterActual.isalnum():
+            cadenaEncontrada += self.caracterActual
+            self.avanzar()
+        return diccionarios.etiquetas.get(cadenaEncontrada, diccionarios.SIMBOLIZAR("IDENTIFIER", cadenaEncontrada))
+
     def cargarSiguienteSimbolo(self):
         while self.caracterActual is not None:
             if self.caracterActual.isspace():
                 if self.caracterActual == "\n":
                     self.linea += 1
-                while self.caracterActual is not None and self.caracterActual.isspace():
-                    self.avanzar()
+                self.simbolosIgnorados()
                 self.columna = 1
                 continue
             elif self.caracterActual.isalpha():
-                cadenaEncontrada = ""
-                while self.caracterActual is not None and self.caracterActual.isalnum():
-                    cadenaEncontrada += self.caracterActual
-                    self.avanzar()
-                return diccionarios.etiquetas.get(cadenaEncontrada, diccionarios.SIMBOLIZAR("IDENTIFIER", cadenaEncontrada))
+                return self.palabra()
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
                 temp = self.caracterActual
                 self.avanzar()
