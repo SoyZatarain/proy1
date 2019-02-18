@@ -33,25 +33,32 @@ class HTMLGEN:
             self.avanzar()
         return diccionarios.etiquetas.get(cadenaEncontrada, diccionarios.SIMBOLIZAR("IDENTIFIER", cadenaEncontrada))
 
+    def numero(self):
+        numeros = ""
+        while self.caracterActual is not None and self.caracterActual.isdigit():
+            numeros += self.caracterActual
+            self.avanzar()
+        return diccionarios.SIMBOLIZAR("INT_NUMBER", numeros)
+
+    def excepcion(self):
+        raise Exception("Caracter no reconocido: " + self.caracterActual)
+
     def cargarSiguienteSimbolo(self):
         while self.caracterActual is not None:
             if self.caracterActual.isspace():
                 if self.caracterActual == "\n":
                     self.linea += 1
+                    self.columna = 1
                 self.simbolosIgnorados()
-                self.columna = 1
                 continue
             elif self.caracterActual.isalpha():
                 return self.palabra()
+            elif self.caracterActual.isdigit():
+                return self.numero()
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
                 temp = self.caracterActual
                 self.avanzar()
                 return diccionarios.simbolos.get(temp)
-            elif self.caracterActual.isdigit():
-                numero = ""
-                while self.caracterActual is not None and self.caracterActual.isdigit():
-                    numero += self.caracterActual
-                    self.avanzar()
-                return diccionarios.SIMBOLIZAR("INT_NUMBER", numero)
-            raise Exception("Caracter no reconocido: " + self.caracterActual)
+            else:
+                self.excepcion()
         return diccionarios.SIMBOLIZAR("FIN", None)
