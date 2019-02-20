@@ -27,11 +27,22 @@ class HTMLGEN:
             self.avanzar()
 
     def palabra(self):
-        cadenaEncontrada = ""
-        while self.caracterActual is not None and self.caracterActual.isalnum():
-            cadenaEncontrada += self.caracterActual
-            self.avanzar()
-        return diccionarios.etiquetas.get(cadenaEncontrada, diccionarios.SIMBOLIZAR("ATTR_NAME", cadenaEncontrada))
+        palabras = ""
+        if self.caracterAnterior == '"':
+            while self.caracterActual is not None and self.caracterActual != '"':
+                palabras += self.caracterActual
+                self.avanzar()
+            return diccionarios.SIMBOLIZAR("ATTR_VALUE", palabras)
+        elif self.caracterAnterior == ">":
+            while self.caracterActual is not None and self.caracterActual != '<':
+                palabras += self.caracterActual
+                self.avanzar()
+            return diccionarios.SIMBOLIZAR("HTML_INNERTEXT", palabras)
+        else:
+            while self.caracterActual is not None and self.caracterActual.isalnum():
+                palabras += self.caracterActual
+                self.avanzar()
+            return diccionarios.etiquetas.get(palabras, diccionarios.SIMBOLIZAR("ATTR_NAME", palabras))
 
     def numero(self):
         numeros = ""
@@ -39,15 +50,6 @@ class HTMLGEN:
             numeros += self.caracterActual
             self.avanzar()
         return diccionarios.SIMBOLIZAR("INT_NUMBER", numeros)
-
-    def cadena(self):
-        cadenaEntreComillas = ""
-        self.avanzar()
-        while self.caracterActual is not None and self.caracterActual != '"':
-            cadenaEntreComillas += self.caracterActual
-            self.avanzar()
-        self.avanzar()
-        return diccionarios.SIMBOLIZAR("ATTR_VALUE", cadenaEntreComillas)
 
     def excepcion(self):
         raise Exception("Caracter no reconocido: " + self.caracterActual)
@@ -64,8 +66,6 @@ class HTMLGEN:
                 return self.palabra()
             elif self.caracterActual.isdigit():
                 return self.numero()
-            elif self.caracterActual == '"':
-                return self.cadena()
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
                 temp = self.caracterActual
                 self.avanzar()
