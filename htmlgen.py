@@ -28,8 +28,9 @@ class HTMLGEN:
 
     def palabra(self):
         palabras = ""
-        if self.caracterAnterior == '"':
-            while self.caracterActual is not None and self.caracterActual != '"':
+        if self.caracterAnterior in ['"', "'"]:
+            final = self.caracterAnterior
+            while self.caracterActual is not None and self.caracterActual != final:
                 palabras += self.caracterActual
                 self.avanzar()
             return diccionarios.SIMBOLIZAR("ATTR_VALUE", palabras)
@@ -39,17 +40,10 @@ class HTMLGEN:
                 self.avanzar()
             return diccionarios.SIMBOLIZAR("HTML_INNERTEXT", palabras)
         else:
-            while self.caracterActual is not None and self.caracterActual.isalnum():
+            while self.caracterActual is not None and (self.caracterActual.isalnum() or self.caracterActual in ["-", "."]):
                 palabras += self.caracterActual
                 self.avanzar()
             return diccionarios.etiquetas.get(palabras, diccionarios.SIMBOLIZAR("ATTR_NAME", palabras))
-
-    def numero(self):
-        numeros = ""
-        while self.caracterActual is not None and self.caracterActual.isdigit():
-            numeros += self.caracterActual
-            self.avanzar()
-        return diccionarios.SIMBOLIZAR("INT_NUMBER", numeros)
 
     def excepcion(self):
         raise Exception("Caracter no reconocido: " + self.caracterActual)
@@ -67,6 +61,8 @@ class HTMLGEN:
             elif self.caracterActual.isdigit():
                 return self.numero()
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
+                if self.caracterActual == "/" and self.caracterAnterior in ["'", '"']:
+                    return self.palabra()
                 temp = self.caracterActual
                 self.avanzar()
                 return diccionarios.simbolos.get(temp)
