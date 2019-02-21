@@ -60,12 +60,16 @@ class HTMLGEN:
                 return self.palabra()
             elif self.caracterActual.isalpha():
                 return self.palabra()
-            elif self.caracterActual.isdigit():
-                return self.numero()
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
                 temp = self.caracterActual
                 self.avanzar()
                 return diccionarios.simbolos.get(temp)
+            elif self.caracterActual == "!" and self.caracterAnterior == "<":
+                while self.caracterActual is not None and self.caracterActual != ">":
+                    self.avanzar()
+                return diccionarios.SIMBOLIZAR("COMMENT", "comentario")
+            elif self.caracterAnterior == ">":
+                return self.palabra()
             else:
                 self.excepcion()
         return diccionarios.SIMBOLIZAR("FIN", None)

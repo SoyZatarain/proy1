@@ -139,5 +139,4 @@ simbolos: dict = {
     "=":  SIMBOLIZAR("SYMBOL_EQUALSYM", "="),
     "'":  SIMBOLIZAR("SYMBOL_SINQUOTE", "'"),
     "\"": SIMBOLIZAR("SYMBOL_DOBQUOTE", "\""),
-    "!":  SIMBOLIZAR("SYMBOL_EXCLAMAT", "!"),
 }
