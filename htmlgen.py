@@ -56,13 +56,13 @@ class HTMLGEN:
                     self.columna = 1
                 self.simbolosIgnorados()
                 continue
+            elif self.caracterAnterior in ["'", '"'] and self.texto[self.posicion-2]=="=":
+                return self.palabra()
             elif self.caracterActual.isalpha():
                 return self.palabra()
             elif self.caracterActual.isdigit():
                 return self.numero()
             elif self.caracterActual in list(diccionarios.simbolos.keys()):
-                if self.caracterActual == "/" and self.caracterAnterior in ["'", '"']:
-                    return self.palabra()
                 temp = self.caracterActual
                 self.avanzar()
                 return diccionarios.simbolos.get(temp)
