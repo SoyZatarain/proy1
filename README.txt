@@ -18,12 +18,8 @@ Proyecto 1: Generador de HTML5 mediante JavaScript ES5 implementado en Python
 
  > Planes
  ~~~~~~~~~~
- Originalmente trate de hacer una simbolizacion cracter por caracter, despues ensamblar los
- simbolos generado en estructuras, que finalmente se ensamblarian en el  HTML  introducido.
- Sin embargo,  me  doy  cuenta que esto es un esfuerzo innecesario porque hay patrones bien
- conocidos y estructurado en el documento. Dicho asi suena muy obvio, pero me refiero a las
- estructuras menos genericas, no partiendo desde sus cimientos, sino de el propio estandar,
- considerando los siguientes campos:
+ !!! SIMBOLIZACION SENCILLA TERMINADA, SIGUE EL ENSAMBLADO EN ESTRUCTURAS
+
  1.- Etiquetas con o sin cierre
       <tag attr1="val1" attr2="val2" ... attrn="attrn">Inner of the tag</tag>
       ^ ^  \__________________  _____________________/^\______  ______/\_  _/
