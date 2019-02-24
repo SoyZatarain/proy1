@@ -13,9 +13,9 @@ class HTMLGEN:
         self.columna = 0
         self.linea = 1
 
-    def avanzar(self):
-        self.posicion += 1
-        self.columna += 1
+    def avanzar(self, pasos=1):
+        self.posicion += pasos
+        self.columna += pasos
         if self.posicion > len(self.texto) - 1:
             self.caracterActual = None
         else:
