@@ -1,4 +1,5 @@
 from htmlgen import *
+import json
 
 milestone = """
 <!DOCTYPE html>
@@ -32,6 +33,9 @@ milestone = """
 contenido = HTMLGEN(milestone)
 
 while contenido.caracterActual is not None:
+    simbolos = []
     nodo = contenido.cargarSiguienteSimbolo()
-    print("Detectado simbolo %s de tipo %s" % (nodo.valor, nodo.tipo))
-    print("=========================================================")
+    simbolos.append([nodo.valor, nodo.tipo])
+
+    for simbolo in simbolos:
+        print(simbolo)

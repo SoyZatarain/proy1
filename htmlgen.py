@@ -43,7 +43,7 @@ class HTMLGEN:
             while self.caracterActual is not None and (self.caracterActual.isalnum() or self.caracterActual in ["-", "."]):
                 palabras += self.caracterActual
                 self.avanzar()
-            return diccionarios.etiquetas.get(palabras, diccionarios.SIMBOLIZAR("ATTR_NAME", palabras))
+            return diccionarios.SIMBOLIZAR("ATTR_NAME", palabras)
 
     def excepcion(self):
         raise Exception("Caracter no reconocido: " + self.caracterActual)
@@ -73,3 +73,18 @@ class HTMLGEN:
             else:
                 self.excepcion()
         return diccionarios.SIMBOLIZAR("FIN", None)
+
+
+class Arbol:
+    def __init__(self, simbolosAsignados):
+        self.simbolosAsignados = simbolosAsignados
+        self.simboloAnterior = None
+        self.simboloActual = self.simbolosAsignados.cargarSiguienteSimbolo()
+
+    def simboloDump(self):
+        return self.simboloActual
+
+    def ensamblar(self, tipoDeSimbolo):
+        if self.simboloActual.tipo == tipoDeSimbolo:
+            self.simboloAnterior = self.simboloActual
+            self.simboloActual = self.simbolosAsignados.cargarSiguienteSimbolo()
