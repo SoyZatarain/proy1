@@ -39,6 +39,16 @@ class HTMLGEN:
                 palabras += self.caracterActual
                 self.avanzar()
             return diccionarios.SIMBOLIZAR("HTML_INNERTEXT", palabras)
+        elif self.caracterAnterior == "<":
+            while self.caracterActual is not None and not (self.caracterActual.isspace() or self.caracterActual == ">"):
+                palabras += self.caracterActual
+                self.avanzar()
+            return diccionarios.SIMBOLIZAR("HTML_TAG_"+palabras.upper()+"_OPEN", palabras.upper())
+        elif self.caracterAnterior == "/":
+            while self.caracterActual is not None and self.caracterActual != '>':
+                palabras += self.caracterActual
+                self.avanzar()
+            return diccionarios.SIMBOLIZAR("HTML_TAG_"+palabras.upper()+"_CLOSE", palabras.upper())
         else:
             while self.caracterActual is not None and (self.caracterActual.isalnum() or self.caracterActual in ["-", "."]):
                 palabras += self.caracterActual
@@ -73,7 +83,6 @@ class HTMLGEN:
             else:
                 self.excepcion()
         return diccionarios.SIMBOLIZAR("FIN", None)
-
 
 class Arbol:
     def __init__(self, simbolosAsignados):
