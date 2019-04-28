@@ -89,11 +89,21 @@ class Arbol:
         self.simbolosAsignados = simbolosAsignados
         self.simboloAnterior = None
         self.simboloActual = self.simbolosAsignados.cargarSiguienteSimbolo()
+        self.estructuraActual = []
 
     def simboloDump(self):
         return self.simboloActual
 
     def ensamblar(self, tipoDeSimbolo):
         if self.simboloActual.tipo == tipoDeSimbolo:
+            self.estructuraActual.append(self.simboloActual)
             self.simboloAnterior = self.simboloActual
             self.simboloActual = self.simbolosAsignados.cargarSiguienteSimbolo()
+
+    def ensamblarAtributo(self):
+        self.ensamblar("ATTR_NAME")
+        self.ensamblar("SYMBOL_EQUALSYM")
+        self.ensamblar("SYMBOL_DOBQUOTE")
+        self.ensamblar("ATTR_VALUE")
+        self.ensamblar("SYMBOL_DOBQUOTE")
+        return diccionarios.Atributo(self.estructuraActual[0].valor, self.estructuraActual[3].valor)
