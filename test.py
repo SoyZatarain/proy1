@@ -1,5 +1,7 @@
+from htmlgen import *
+
 # 1.- Texto de prueba, en este caso, un atributo generico que me invente
-pruebaatributos = 'cref="listo"'
+pruebaatributos = '<a href="https://www.google.com/">Click aqui</a>'
 
 # 2.- Hacemos pasar el texto de prueba por el constructor de la clase HTMLGEN
 #     para obtener los simbolos que lo componen y guardamos el  resultado  en
@@ -14,11 +16,13 @@ estructuras = Arbol(simbolos)
 
 # 4.- Como nosotros ya sabemos que se trata de un atributo, nos  saltamos  la
 #     deteccion, por lo que directamente pedimos que se enamble como tal.
-final = estructuras.ensamblarAtributo()
+final = estructuras.ensamblarEtiquetaA()
 
 # 5.- Finalmente, imprimimos esta cadena, que muestra el nombre y  valor  del
 #     atributo una vez ensamblado
-print("%s: %s" % (final.nombre, final.valor))
+print(final.nombre)
+print(final.atributos[0].nombre)
+print(final.atributos[0].valor)
 
 # - - -   A T E N C I O N   - - - 
 # Esto solo es una prueba de concepto de el ensamblado de estructuras tomando

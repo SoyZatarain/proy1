@@ -14,10 +14,10 @@ class Atributo:
 from typing import List
 
 class Etiqueta:
-    def __init__(self, nombre: str, atributos: List[Atributo], nodoSuperior):
+    def __init__(self, nombre: str, atributos: List[Atributo]):
         self.nombre = nombre
         self.atributos = atributos
-        self.nodoSuperior = nodoSuperior
+        # self.nodoSuperior = nodoSuperior
 
 class TextoInterno:
     def __init__(self, contenido: str, nodoSuperior: Etiqueta):
